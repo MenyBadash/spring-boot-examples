@@ -5,7 +5,7 @@
 
 	<groupId>com.neo</groupId>
 	<artifactId>spring-boot-package-war</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>spring-boot-package-war</name>
@@ -28,13 +28,13 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -50,18 +50,36 @@
 	        <optional>true</optional>
 		</dependency>
 	</dependencies>
-	
-	<build>
+		
+		<build>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<configuration>
+		                <fork>true</fork>
+		            </configuration>
+				</plugin>
+			</plugins>
+		</build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-	                <fork>true</fork>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-war-plugin</artifactId>
+	            <configuration>
+	                <manifest>
+	                    <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+	                </manifest>
+	                <archive>
+	                    <manifestEntries>
+	                        <Specification-Title>${project.name}</Specification-Title>
+	                        <Specification-Version>${project.version}</Specification-Version>
+	                        <Implementation-Version>${build.number}</Implementation-Version>
+	                    </manifestEntries>
+	                </archive>
 	            </configuration>
-			</plugin>
-		</plugins>
+	        </plugin>
+	    </plugins>
 	</build>
-	
 
-</project>
+	</project>
